@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://www.cnblogs.com/hafiz/p/8146324.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitLab配置ssh key - Hafiz.Zhang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/267148.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/bundle-MoonlightInk-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/hafiz/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/hafiz/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/hafiz/wlwmanifest.xml">
+<script async="" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/encoder.js.下载"></script><script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'hafiz', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<script>
+window.tctipConfig = {
+  staticPrefix: "http://static.tctip.com",
+  buttonImageId: 7,
+  buttonTip: "dashang",
+  list:{
+    alipay: {qrimg: "https://files.cnblogs.com/files/hafiz/zfb_receiveMoney.bmp"},
+    weixin:{qrimg: "https://files.cnblogs.com/files/hafiz/wx_receiveMoney.bmp"},
+  }
+};
+setTimeout(
+        function () {
+            var a_gzw = document.getElementById("follow_me_btn");
+            if(a_gzw != undefined) {
+ a_gzw.href = "javascript:void(0);";
+            $("#follow_me_btn").attr("onclick","follow('1a7bf19a-86d5-e511-9fc1-ac853d9f53cc');");
+}
+        }, 900);
+setTimeout(
+ function () {
+            var a_zan = document.getElementById("recommend");
+            if(a_zan != undefined) {
+             a_zan .href = "javascript:void(0);";
+            $("#recommend").attr("onclick","$('.diggit').click();");
+}
+        }, 900);
+</script>
+<script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/tctip.min.js.下载"></script><link type="text/css" rel="stylesheet" href="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/myRewards.css"><div id="myRewards" class="myRewards" style="width: 0px;"><a class="btn-myRewards" href="javascript:;"><img class="png" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/tab_7.png"></a><div class="myRewards-main"><h1 class="myR-h">喜欢请打赏</h1><div class="myRewardsbox"><div class="myRewards-list"><ul class="not-full"><li class=""><a href="javascript:;">支付宝<img class="png" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/alipay.png" alt="支付宝"></a></li><li class="myR-on"><a href="javascript:;">微信<img class="png" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/weixin.png" alt="微信"></a></li></ul></div><div class="myRewards-detail"><div class="myRewards-ubox"><p class="myRewards-code-tit">扫描二维码打赏</p><div class="myRewards-code"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/wx_receiveMoney.bmp"></div><p class="myRewards-account">微信打赏</p></div></div></div><p class="myR-bot"><a href="https://github.com/greedying/tctip" target="_blank">了解更多</a></p></div></div><script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/index"></script>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/hafiz/"><img id="blogLogo" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1 class="bounceInLeft animated"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/hafiz/"><img style="margin: -30px 35px; width: 200px;" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/894443-20161129150658302-2072056308.png" alt="Hafiz.Zhang"></a></h1>
+<h2 class="bounceInRight animated">To build a better world by code...</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/hafiz/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Hafiz.Zhang">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/hafiz/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/hafiz/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 143&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 426</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/hafiz/p/8146324.html">GitLab配置ssh key</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><h3 class="md-end-block md-heading md-focus"><span class="md-expand">一、背景</span></h3>
+<p><span class="md-line md-end-block"><span>　　当前很多公司都选择git作为代码版本控制工具，然后自己公司搭建私有的gitlab来管理代码，我们在clone代码的时候可以选择http协议，当然我们亦可以选择ssh协议来拉取代码。但是网上很少找到如何用git客户端生成ssh key，然后配置在gitlab，我当时在做的时候苦于摸索，后来终于找到了解决方案，那么本文，我们就来聊一聊如何本地git客户端生成ssh key，然后配置在gitlab里，而后使用ssh协议进行提交和拉取git远程仓库的代码。</span></span></p>
+<h3 class="md-end-block md-heading"><span>二、解决方案</span></h3>
+<ol class="ol-list">
+<li>
+<p><span class="md-line md-end-block"><span>打开本地git bash,使用如下命令生成ssh公钥和私钥对</span></span></p>
+<p><span class="md-line md-end-block"><span><code>ssh-keygen -t rsa -C 'xxx@xxx.com'</code><span> 然后一路回车(-C 参数是你的邮箱地址)</span></span></span></p>
+<p><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/894443-20171229211426335-267167906.png" alt=""></p>
+</li>
+<li>
+<p><span class="md-line md-end-block"><span>然后打开~/.ssh/id_rsa.pub文件(~表示用户目录，比如我的windows就是C:\Users\Administrator)，复制其中的内容</span></span></p>
+</li>
+<li>
+<p><span class="md-line md-end-block"><span>打开gitlab,找到Profile Settings--&gt;SSH Keys---&gt;Add SSH Key,并把上一步中复制的内容粘贴到Key所对应的文本框，在Title对应的文本框中给这个sshkey设置一个名字，点击Add key按钮</span></span></p>
+</li>
+</ol>
+<p><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/894443-20171229211459257-1162181012.png" alt="" width="803" height="521"></p>
+<p><span class="md-line md-end-block"><span>　　4. 到此就完成了gitlab配置ssh key的所有步骤，我们就可以愉快的使用ssh协议进行代码的拉取以及提交等操作了</span></span></p>
+<p><span class="md-line md-end-block"><span>　　5. 再试一下拉取代码和提交代码，应该就不需要输入密码了</span></span></p>
+<h3>三、本地配置多个ssh key</h3>
+<p><span class="md-line md-end-block md-focus"><span class="md-expand">大多数时候，我们的机器上会有很多的git host,比如公司gitlab、github、oschina等，那我们就需要在本地配置多个ssh key，使得不同的host能使用不同的ssh key ,做法如下（以公司gitlab和github为例）：</span></span></p>
+<ol class="ol-list">
+<li>
+<p><span class="md-line md-end-block"><span>为公司生成一对秘钥ssh key</span></span></p>
+<div class="cnblogs_code">
+<pre>ssh-keygen -t rsa -C 'yourEmail@xx.com' -f ~/.ssh/gitlab-rsa</pre>
+</div>
+</li>
+<li>
+<p><span class="md-line md-end-block"><span>为github生成一对秘钥ssh key</span></span></p>
+<div class="cnblogs_code">
+<pre>ssh-keygen -t rsa -C 'yourEmail2@xx.com' -f ~/..sh/github-rsa</pre>
+</div>
+</li>
+<li>
+<p><span class="md-line md-end-block"><span>在~/.ssh目录下新建名称为config的文件（无后缀名）。用于配置多个不同的host使用不同的ssh key，内容如下：</span></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;"># gitlab
+Host gitlab.com
+    HostName gitlab.com
+    PreferredAuthentications publickey
+    IdentityFile </span>~/.ssh/gitlab_id-<span style="color: #000000;">rsa
+# github
+Host github.com
+    HostName github.com
+    PreferredAuthentications publickey
+    IdentityFile </span>~/.ssh/github_id-<span style="color: #000000;">rsa
+  ​
+# 配置文件参数
+# Host : Host可以看作是一个你要识别的模式，对识别的模式，进行配置对应的的主机名和ssh文件
+# HostName : 要登录主机的主机名
+# User : 登录名
+# IdentityFile : 指明上面User对应的identityFile路径</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</li>
+<li><span class="md-line md-end-block"><span class="md-line md-end-block"><span>按照上面的步骤分别往gitlab和github上添加生成的公钥</span></span></span>gitlab_id-rsa.pub和github_id-rsa.pub</li>
+<li>
+<p><span class="md-line md-end-block"><span>OK，大功告成，再次执行git命令验证是不是已经不需要再次验证权限了。</span></span></p>
+</li>
+<li>
+<p><span class="md-line md-end-block"><span>再次查看~/..ssh目录下的文件,会有gitlab_id-rsa、gitlab_id-rsa.pub和github_id-rsa、github_id-rsa.pub四个文件</span></span></p>
+</li>
+</ol>
+<h3 class="md-end-block md-heading"><span>三、总结</span></h3>
+<p><span class="md-line md-end-block"><span>　　我们为什么要使用ssh协议呢？因为ssh更加安全，然后更加方便，比如我们公司的gitlab由http协议换成了https协议，那么如果你是使用http协议管理代码，那么需要修改所有的项目中的git地址变成https，这会把我们给逼疯的！但是如果我们一开始就是用ssh协议，这不需要任何的修改，简直不能再爽一点了。</span></span></p></div><div id="MySignature" style="display: block;"><div style="font-size: 13px; border: 1px dashed rgb(45, 161, 45); padding: 10px 15px; background-color: rgb(248, 248, 248)">
+<label style="font-weight: bold">
+&nbsp;&nbsp;&nbsp;&nbsp;为了方便大家在移动端也能看到我分享的博文，现已注册个人微信公众号，扫描下方二维码即可，欢迎大家关注，有时间会及时分享相关技术博文。</label><br>
+&nbsp;&nbsp;&nbsp;&nbsp;感谢您花时间阅读此篇文章,如果您觉得这篇文章你学到了东西也是为了犒劳下博主的码字不易不妨打赏一下吧，让博主能喝上一杯咖啡，在此谢过了！<br>
+&nbsp;&nbsp;&nbsp;&nbsp;如果您觉得阅读本文对您有帮助，请点一下左下角<a id="recommend" style="font-weight: bold; color: red; font-size: 15px">“推荐”</a>按钮，您的<label style="font-weight: bold; color: red; font-size: 15px">“推荐”</label>将是我最大的写作动力！另外您也可以选择<a id="follow_me_btn" style="cursor: pointer; color: blue">【<strong>关注我</strong>】</a>，可以很方便找到我！<br>
+&nbsp;&nbsp;&nbsp;&nbsp;本文版权归作者和博客园共有，来源网址：<a href="http://www.cnblogs.com/hafiz" style="color: red; text-decoration: underline" target="_blank">http://www.cnblogs.com/hafiz</a> 欢迎各位转载，但是未经作者本人同意，转载文章之后必须在文章页面明显位置给出作者和原文连接，否则保留追究法律责任的权利！
+</div>
+<div style="text-align: center; margin-top: 10px">
+   <img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/894443-20170815173725756-601247572.jpg" alt="个人微信公众号">
+</div></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/hafiz/category/829858.html" target="_blank">Git</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(8146324,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;1a7bf19a-86d5-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/hafiz/" target="_blank"><img src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/20170922224207.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/hafiz/">Hafiz.Zhang</a><br>
+            <a href="http://home.cnblogs.com/u/hafiz/followees">关注 - 11</a><br>
+            <a href="http://home.cnblogs.com/u/hafiz/followers">粉丝 - 210</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;1a7bf19a-86d5-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(8146324,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/hafiz/p/8145060.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/hafiz/p/8145060.html" title="发布于2017-12-29 16:16">如何高效撤销Git管理的文件在各种状态下的更改</a><br><a href="http://www.cnblogs.com/hafiz/p/8267030.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/hafiz/p/8267030.html" title="发布于2018-01-11 10:21">Docker三十分钟快速入门（上）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2017-12-29 21:54</span> <a href="http://www.cnblogs.com/hafiz/">Hafiz.Zhang</a> 阅读(<span id="post_view_count">4638</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=8146324" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/hafiz/p/8146324.html#" onclick="AddToWz(8146324);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=267148,cb_entryId=8146324,cb_blogApp=currentBlogApp,cb_blogUserGuid='1a7bf19a-86d5-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2017/12/29 21:54:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/hafiz/p/8146324.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/hafiz/p/8146324.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="https://www.yunqi2050.com/#/index" target="_blank">【活动】2050 大会 - 年青人因科技而团聚（5.26-27杭州·云栖小镇）</a><br><a href="http://clickc.admaster.com.cn/c/a105960,b2436453,c1705,i0,m101,8a1,8b2,h" target="_blank">【推荐】华为云服务器低至3.3折,免费带宽升级,返千元好礼</a><br><a href="https://www.wodidashi.com/web/web3/spread/wb-recruit/pc/index.html?site=cnblogs&amp;pos=HomeB2&amp;type=Banner" target="_blank">【招聘】花大价钱找技术大牛我们是认真的！</a><br><a href="https://cloud.tencent.com/act/partner/cps?fromSource=gwzcw.908610.908610.908610" target="_blank">【活动】腾讯云cps推广奖励，高转化+20%佣金等你来拿</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C1&#39;);" href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.891967.891967.891967" target="_blank"><img width="300" height="250" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/24442-20180402101833163-1165053275.jpg" alt="qcloud_C1_0402"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/594636/" target="_blank">IBM业绩预期令投资者失望 股价遭2013年4月以来最大跌幅</a><br> ·  <a href="https://news.cnblogs.com/n/594635/" target="_blank">接近监管部门人士：小米先于港股市场登陆可能更适合</a><br> ·  <a href="https://news.cnblogs.com/n/594634/" target="_blank">梅耶尔离职雅虎后首次接受采访：卖出阿里股份是个错误</a><br> ·  <a href="https://news.cnblogs.com/n/594633/" target="_blank">人民日报评中兴危机：核心技术受制于人是我们最大的隐患</a><br> ·  <a href="https://news.cnblogs.com/n/594632/" target="_blank">一文读懂让中兴及中国半导体行业遭殃的《瓦森纳协定》</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C2&#39;);" href="http://click.aliyun.com/m/42835/" target="_blank"><img width="468" height="60" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/TB1mEZFaWmWBuNjy1XaXXXCbXXa-468-60.jpg" alt="阿里云0308"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/593985/" target="_blank">如何识别人的技术能力和水平？</a><br> ·  <a href="http://kb.cnblogs.com/page/575255/" target="_blank">写给自学者的入门指南</a><br> ·  <a href="http://kb.cnblogs.com/page/578690/" target="_blank">和程序员谈恋爱</a><br> ·  <a href="http://kb.cnblogs.com/page/585734/" target="_blank">学会学习</a><br> ·  <a href="http://kb.cnblogs.com/page/588938/" target="_blank">优秀技术人的管理陷阱</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news">微信公众号：<br>
+<img border="0" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/894443-20170815173725756-601247572.jpg" alt="微信公众号" title="微信公众号" width="100%" height="100%"><br>
+<div style="color:red;padding:0 10px;">请扫描此二维码关注我的个人微信公众帐号，您将会得到及时的文章推送信息。</div><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/hafiz/">Hafiz.Zhang</a><br>园龄：<a href="https://home.cnblogs.com/u/hafiz/" title="入园时间：2016-02-17">2年2个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/hafiz/followers/">210</a><br>关注：<a href="https://home.cnblogs.com/u/hafiz/followees/">11</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;1a7bf19a-86d5-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div><script>getFollowStatus('1a7bf19a-86d5-e511-9fc1-ac853d9f53cc')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/hafiz/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/hafiz/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/hafiz/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/hafiz/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/hafiz/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/hafiz/category/788415.html">Android</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/hafiz/category/788413.html">Asp.Net(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/hafiz/category/788414.html">Asp.Net MVC</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/hafiz/category/788416.html">C#(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/hafiz/category/788409.html">CSS(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/hafiz/category/1146100.html">Docker(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/hafiz/category/788417.html">Eclipse(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/hafiz/category/829858.html">Git(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/hafiz/category/788418.html">Hibernate</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/hafiz/category/788408.html">HTML(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/hafiz/category/859526.html">IDEA(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/hafiz/category/788419.html">IOS</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/hafiz/category/823619.html">Java(48)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/hafiz/category/788421.html">Java Web(35)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/hafiz/category/788410.html">JavaScript(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/hafiz/category/788439.html">Jersey</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/hafiz/category/809218.html">Jetty(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/hafiz/category/788412.html">JQuery(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/hafiz/category/788420.html">JSTL</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/hafiz/category/959240.html">JVM(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/hafiz/category/788422.html">LINQ</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/hafiz/category/788423.html">Linux(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/hafiz/category/788425.html">Log4j_Slf4j(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/hafiz/category/832139.html">Lombok(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/hafiz/category/788426.html">Maven(27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/hafiz/category/788407.html">Mybatis(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/hafiz/category/788404.html">Mysql(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/hafiz/category/788427.html">Nginx(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/hafiz/category/788428.html">Redis(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/hafiz/category/788430.html">Shiro(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/hafiz/category/788432.html">Sitemesh</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/hafiz/category/788405.html">Spring(23)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/hafiz/category/788406.html">SpringMVC(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/hafiz/category/788429.html">Sql Server</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/hafiz/category/788434.html">Struts</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/hafiz/category/843420.html">SVN(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/hafiz/category/788435.html">Tomcat(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/hafiz/category/788436.html">Windows(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/hafiz/category/788438.html">XML(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/hafiz/category/811073.html">电脑技术相关(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/hafiz/category/809891.html">非技术(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_41" href="http://www.cnblogs.com/hafiz/category/810013.html">散文随记(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_42" href="http://www.cnblogs.com/hafiz/category/1042907.html">设计模式(4)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	125907
+	</li>
+	<li class="liRank">
+		排名 -	2376
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/hafiz/p/5875740.html#3942019">1. Re:Spring和SpringMVC父子容器关系初窥</a></li>
+        <li class="recent_comment_body">在使用 springmvc的配置为时，不需要在Dispatcher中额外声明controller，验证好像没毛病...</li>
+        <li class="recent_comment_author">--HansonYao</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/hafiz/p/7573464.html#3940729">2. Re:一套简约漂亮的响应式博客园主题皮肤分享给你们</a></li>
+        <li class="recent_comment_body">楼主，你现在的模板更漂亮了啊，能放出来教程，让外行人用下吗？<br><br>谢谢，我知道，我贪了，现在用你的模板已经很不错了</li>
+        <li class="recent_comment_author">--星期八再娶你</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/hafiz/p/5875770.html#3940514">3. Re:context:component-scan标签的use-default-filters属性的作用以及原理分析</a></li>
+        <li class="recent_comment_body">不错</li>
+        <li class="recent_comment_author">--狂人虐杀</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/hafiz/p/5876243.html#3933426">4. Re:五种方式让你在java中读取properties文件内容不再是难题</a></li>
+        <li class="recent_comment_body">@stevenlii<br>谢谢，您的肯定是我最大的动力。</li>
+        <li class="recent_comment_author">--Hafiz.Zhang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/hafiz/p/5874131.html#3927670">5. Re:Centos7设置IP为固定值</a></li>
+        <li class="recent_comment_body">@syoukaihou<br>是滴，好久不用，都不熟悉了</li>
+        <li class="recent_comment_author">--Hafiz.Zhang</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/hafiz/p/5876243.html">1. 五种方式让你在java中读取properties文件内容不再是难题(96650)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/6170702.html">2. 聊一聊log4j2配置文件log4j2.xml(45816)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/5715523.html">3. 史上最全web.xml配置文件元素详解(36025)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/5812873.html">4. 解决java.lang.IllegalArgumentException: No converter found for return value of type: class java.util.ArrayList的问题(27298)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/5360195.html">5. 史上最全的maven的pom.xml文件详解(22443)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/hafiz/p/7658429.html">1. 几款效率神器助你走上人生巅峰(131)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/7573464.html">2. 一套简约漂亮的响应式博客园主题皮肤分享给你们(66)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/7739838.html">3. 几款效率神器助你走上人生巅峰之园友推荐(32)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/7598222.html">4. 你敢说自己了解单例模式?(26)</a></li><li><a href="http://www.cnblogs.com/hafiz/p/5876243.html">5. 五种方式让你在java中读取properties文件内容不再是难题(22)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 Hafiz.Zhang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<div id="scrollTop" style="display: none;">
+      <div class="level-2"></div>
+      <div class="level-3"></div>
+</div>
+<script type="text/javascript">
+$(function()
+{
+    $('#blogTitle h1').addClass('bounceInLeft animated');
+    $('#blogTitle h2').addClass('bounceInRight animated');
+    // 删除反对按钮
+    $('.buryit').remove();
+initCommentData();
+});
+function initCommentData()
+{
+    $('.feedbackItem').each(function() {
+        var text = $(this).find('.feedbackListSubtitle .layer').text();
+        // 将楼层信息放到data里面
+        // $(this).find('.blog_comment_body').attr('data-louceng', text.replace(/^#/g, ''));
+        if($(this).find('.feedbackListSubtitle .louzhu').length>0) $(this).addClass('myself');
+		var avatar = $(this).find('> .feedbackCon > span').html() || 'http://pic.cnitblog.com/face/sample_face.gif';
+		$(this).find('> .feedbackCon > .blog_comment_body').append('<img class="user-avatar" src="'+avatar+'"/>')
+    });
+}
+
+$(document).ajaxComplete(function(event, xhr, settings) {
+ // 监听获取评论ajax事件
+ if(settings.url.indexOf('/mvc/blog/GetComments.aspx') >= 0) {
+    initCommentData();
+}
+});
+</script>
+<script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/jquery-1.4.4.min.js.下载"></script>
+<script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/scroll2top.js.下载"></script>
+<script type="text/javascript">
+        UI.global_search();
+        var uvOptions = {};
+        // !important
+        (function() {
+            initScrollTop();
+        })();
+    </script>
+<!--<script type="text/javascript" src="https://files.cnblogs.com/files/hafiz/comments.js"></script>-->
+<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1264405927'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1264405927%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+</script><span id="cnzz_stat_icon_1264405927"><a href="http://www.cnzz.com/stat/website.php?web_id=1264405927" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/pic.gif"></a></span><script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/z_stat.php" type="text/javascript"></script><script src="./GitLab配置ssh key - Hafiz.Zhang - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>
